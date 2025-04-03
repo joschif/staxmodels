@@ -30,8 +30,8 @@ class Results:
 ##    #n = len(x0)  #nparams, where do I get this
 ##    cov_x = None
 ##    if info in [1,2,3,4]:
-##        from numpy.dual import inv
-##        from numpy.linalg import LinAlgError
+##        from jax.numpy.linalg import inv
+##        from jax.numpy.linalg import LinAlgError
 ##        perm = np.take(np.eye(n), retval[1]['ipvt']-1,0)
 ##        r = np.triu(np.transpose(retval[1]['fjac'])[:n,:])
 ##        R = np.dot(r, perm)

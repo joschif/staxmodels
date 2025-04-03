@@ -8,7 +8,7 @@ import warnings
 
 import jax.numpy as np
 import pandas as pd
-from scipy import stats
+from jax.scipy import stats
 
 from statsmodels.base.data import handle_data
 from statsmodels.base.optimizer import Optimizer

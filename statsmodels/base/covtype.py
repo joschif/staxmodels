@@ -8,7 +8,7 @@ License: BSD-3
 
 from statsmodels.compat.python import lzip
 
-import numpy as np
+import jax.numpy as np
 
 descriptions = {
     'HC0': 'Standard Errors are heteroscedasticity robust (HC0)',

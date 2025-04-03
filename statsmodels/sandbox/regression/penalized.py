@@ -34,6 +34,8 @@ problem with definition of df_model, it has 1 subtracted for constant
 """
 from statsmodels.compat.python import lrange
 import jax.numpy as np
+from jax.scipy import optimize
+from jax.scipy import stats
 
 from statsmodels.tools.decorators import cache_readonly
 from statsmodels.regression.linear_model import OLS, GLS, RegressionResults
@@ -378,7 +380,6 @@ class TheilRegressionResults(RegressionResults):
         r_diff = self.model.q_matrix - r_mat.dot(res_ols.params)[:,None]
         ols_cov_r = res_ols.cov_params(r_matrix=r_mat)
         statistic = r_diff.T.dot(np.linalg.solve(ols_cov_r + self.model.sigma_prior, r_diff))
-        from scipy import stats
         df = np.linalg.matrix_rank(self.model.sigma_prior)   # same as r_mat.shape[0]
         pvalue = stats.chi2.sf(statistic, df)
         # TODO: return results class
@@ -444,12 +445,12 @@ def coef_restriction_diffseq(n_coeffs, degree=1, n_vars=None, position=0, base_i
         diff_coeffs = [-1, 1]
         n_points = 2
     elif degree > 1:
-        from scipy import misc
+        from jax.scipy import misc
         n_points = next_odd(degree + 1)  #next odd integer after degree+1
         diff_coeffs = misc.central_diff_weights(n_points, ndiv=degree)
 
     dff = np.concatenate((diff_coeffs, np.zeros(n_coeffs - len(diff_coeffs))))
-    from scipy import linalg
+    from jax.scipy import linalg
     reduced = linalg.toeplitz(dff, np.zeros(n_coeffs - len(diff_coeffs) + 1)).T
     #reduced = np.kron(np.eye(n_coeffs-n_points), diff_coeffs)
 

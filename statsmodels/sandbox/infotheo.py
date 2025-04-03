@@ -34,7 +34,7 @@ Golan, A., Judge, G., and Miller, D.  1996.  Maximum Entropy Econometrics.
 
 from statsmodels.compat.python import lzip, lmap
 from scipy import stats
-import numpy as np
+import jax.numpy as np
 from matplotlib import pyplot as plt
 from scipy.special import logsumexp as sp_logsumexp
 

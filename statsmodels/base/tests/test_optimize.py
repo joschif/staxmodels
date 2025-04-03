@@ -1,3 +1,4 @@
+import jax.numpy as np
 from statsmodels.compat.scipy import SP_LT_15, SP_LT_17
 import pytest
 from numpy.testing import assert_

@@ -89,7 +89,8 @@ added Maximum Product-of-Spacings 2010-05-12
 
 import jax.numpy as np
 from jax.scipy import optimize
-from scipy import special, stats
+from jax.scipy import special
+from jax.scipy.stats import scoreatpercentile
 
 cache = {}   #module global storage for temp results, not used
 
@@ -227,7 +228,7 @@ def fitquantilesgmm(distfn, x, start=None, pquant=None, frozen=None):
         else:
             start = [1]*distfn.numargs + [0.,1.]
     #TODO: vectorize this:
-    xqs = [stats.scoreatpercentile(x, p) for p in pquant*100]
+    xqs = [scoreatpercentile(x, p) for p in pquant*100]
     mom2s = None
     parest = optimize.fmin(lambda params:np.sum(
         momentcondquant(distfn, params, mom2s,(pquant,xqs), shape=None)**2), start)
@@ -484,7 +485,7 @@ if __name__ == '__main__':
     rvsb = stats.beta.rvs(10,15,size=2000)
     print('true params', 10, 15, 0, 1)
     print(stats.beta.fit(rvsb))
-    xqsb = [stats.scoreatpercentile(rvsb, p) for p in pq*100]
+    xqsb = [scoreatpercentile(rvsb, p) for p in pq*100]
     mom2s = np.array([rvsb.mean(), rvsb.var()])
     betaparest_gmmquantile = optimize.fmin(lambda params:np.sum(momentcondquant(stats.beta, params, mom2s,(pq,xqsb), shape=None)**2),
                                            [10,10, 0., 1.], maxiter=2000)
@@ -503,7 +504,7 @@ if __name__ == '__main__':
     pq = np.array([0.1,0.9])
     paramsdgp = (5, 0, 1)
     trvs = distfn.rvs(5, 0, 1, size=nobs)
-    xqs = [stats.scoreatpercentile(trvs, p) for p in pq*100]
+    xqs = [scoreatpercentile(trvs, p) for p in pq*100]
     mom2th = distfn.stats(*paramsdgp)
     mom2s = np.array([trvs.mean(), trvs.var()])
     tparest_gmm3quantilefsolve = optimize.fsolve(lambda params:momentcondunbound(distfn,params, mom2s,(pq,xqs)), [10,1.,2.])
@@ -518,7 +519,7 @@ if __name__ == '__main__':
     ##pq = np.array([0.1,0.9])
     ##paramsdgp = (5, 0, 1)
     ##trvs = distfn.rvs(5, 0, 1, size=nobs)
-    ##xqs = [stats.scoreatpercentile(trvs, p) for p in pq*100]
+    ##xqs = [scoreatpercentile(trvs, p) for p in pq*100]
     ##mom2th = distfn.stats(*paramsdgp)
     ##mom2s = np.array([trvs.mean(), trvs.var()])
     print(optimize.fsolve(lambda params:momentcondunboundls(distfn, params, mom2s,shape=5), [1.,2.]))
@@ -531,7 +532,7 @@ if __name__ == '__main__':
 
     pq = np.array([0.01, 0.05,0.1,0.4,0.6,0.9,0.95,0.99])
     #paramsdgp = (5, 0, 1)
-    xqs = [stats.scoreatpercentile(trvs, p) for p in pq*100]
+    xqs = [scoreatpercentile(trvs, p) for p in pq*100]
     tparest_gmmquantile = optimize.fmin(lambda params:np.sum(momentcondquant(distfn, params, mom2s,(pq,xqs), shape=None)**2), [10, 1.,2.])
     print('tparest_gmmquantile', tparest_gmmquantile)
     tparest_gmmquantile2 = fitquantilesgmm(distfn, trvs, start=[10, 1.,2.], pquant=None, frozen=None)
