@@ -3,7 +3,7 @@ Created on Wed Jul 28 08:28:04 2010
 
 Author: josef-pktd
 """
-import numpy as np
+import jax.numpy as np
 from scipy import optimize, special, stats
 
 import statsmodels.api as sm

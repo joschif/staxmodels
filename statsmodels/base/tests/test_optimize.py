@@ -3,6 +3,8 @@ import pytest
 from numpy.testing import assert_
 from numpy.testing import assert_almost_equal
 
+from jax.scipy import optimize
+
 from statsmodels.base.optimizer import (
     _fit_newton,
     _fit_nm,

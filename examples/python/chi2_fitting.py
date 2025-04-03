@@ -19,9 +19,10 @@
 # which classes and functions are relevant and what their inputs and outputs
 # mean.
 
-import numpy as np
+import jax.numpy as np
 import pandas as pd
 import statsmodels.api as sm
+from jax.scipy.optimize import minimize, curve_fit
 
 # ## Linear models
 
@@ -103,7 +104,6 @@ print(results.summary())
 
 # You can use `scipy.optimize.curve_fit` to get the best-fit parameters
 # and parameter errors.
-from scipy.optimize import curve_fit
 
 
 def f(x, a, b):
@@ -125,7 +125,6 @@ print(f"b = {popt[1]:10.3f} +- {perr[1]:10.3f}")
 # function.
 # This does not give you the parameter errors though ... you'd have
 # to estimate the HESSE matrix separately ...
-from scipy.optimize import minimize
 
 
 def chi2(pars):

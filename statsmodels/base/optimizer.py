@@ -9,8 +9,8 @@ from statsmodels.compat.scipy import SP_LT_15, SP_LT_17
 from collections.abc import Sequence
 from typing import Any
 
-import numpy as np
-from scipy import optimize
+import jax.numpy as np
+from jax.scipy import optimize
 
 
 def check_kwargs(kwargs: dict[str, Any], allowed: Sequence[str], method: str):

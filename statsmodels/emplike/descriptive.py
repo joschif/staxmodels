@@ -17,8 +17,8 @@ Owen, A. (2001). "Empirical Likelihood." Chapman and Hall
 """
 import itertools
 
-import numpy as np
-from scipy import optimize
+import jax.numpy as np
+from jax.scipy import optimize
 from scipy.stats import chi2, kurtosis, skew
 
 from statsmodels.base.optimizer import _fit_newton
@@ -858,7 +858,7 @@ class DescStatUV(_OptFuncts):
 
         lower_bound : float
             Minimum value of skewness the lower limit can be.
-            Default is .99 confidence level assuming normality.
+            Default is .99 confidence limit assuming normality.
 
         Returns
         -------

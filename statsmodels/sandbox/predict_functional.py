@@ -10,7 +10,7 @@ from statsmodels.compat.pandas import Appender
 
 import warnings
 
-import numpy as np
+import jax.numpy as np
 import pandas as pd
 
 from statsmodels.formula._manager import FormulaManager
@@ -361,7 +361,7 @@ def predict_functional(result, focus_var, summaries=None, values=None,
         cb = np.zeros((num_points, 2))
 
         # Scheffe's method
-        from scipy.stats.distributions import f as fdist
+        from jax.scipy.stats import f as fdist
         df1 = result.model.exog.shape[1]
         df2 = result.model.exog.shape[0] - df1
         qf = fdist.cdf(1 - alpha, df1, df2)
@@ -436,7 +436,7 @@ def _glm_basic_scr(result, exog, alpha):
     bzdn = (bzd**2).sum(1)
     kappa_0 = np.sqrt(bzdn).sum()
 
-    from scipy.stats.distributions import norm
+    from jax.scipy.stats import norm
 
     # The root of this function is the multiplier for the confidence
     # band, see Sun et al. equation 35.

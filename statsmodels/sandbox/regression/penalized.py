@@ -33,7 +33,7 @@ problem with definition of df_model, it has 1 subtracted for constant
 
 """
 from statsmodels.compat.python import lrange
-import numpy as np
+import jax.numpy as np
 
 from statsmodels.tools.decorators import cache_readonly
 from statsmodels.regression.linear_model import OLS, GLS, RegressionResults
@@ -264,7 +264,7 @@ class TheilGLS(GLS):
             `lambd`. Not since there can be local minima, it is best to try
             different starting values.
         optim_args : None or dict
-            optimization keyword arguments used with `scipy.optimize.fmin`
+            optimization keyword arguments used with `jax.scipy.optimize.fmin`
 
         Returns
         -------
@@ -274,7 +274,7 @@ class TheilGLS(GLS):
 
         Notes
         -----
-        This uses `scipy.optimize.fmin` as optimizer.
+        This uses `jax.scipy.optimize.fmin` as optimizer.
         """
         if optim_args is None:
             optim_args = {}
@@ -288,7 +288,6 @@ class TheilGLS(GLS):
             # for pure Ridge we can keep the eigenvector decomposition
             return getattr(self.fit(lambd), method)
 
-        from scipy import optimize
         lambd = optimize.fmin(get_ic, start_params, **optim_args)
         return lambd
 

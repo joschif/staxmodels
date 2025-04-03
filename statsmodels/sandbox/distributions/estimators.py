@@ -87,8 +87,9 @@ added Maximum Product-of-Spacings 2010-05-12
 
 '''
 
-import numpy as np
-from scipy import optimize, special, stats
+import jax.numpy as np
+from jax.scipy import optimize
+from scipy import special, stats
 
 cache = {}   #module global storage for temp results, not used
 

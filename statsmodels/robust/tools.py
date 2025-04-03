@@ -5,8 +5,9 @@ Author: Josef Perktold
 License: BSD-3
 """
 
-import numpy as np
-from scipy import integrate, optimize, stats
+import jax.numpy as np
+from jax.scipy import integrate
+from scipy import optimize, stats
 
 from statsmodels.tools.testing import Holder
 

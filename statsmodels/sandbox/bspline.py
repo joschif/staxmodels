@@ -19,7 +19,7 @@ General references:
 import warnings
 
 from models import _hbspline  # removed because this was segfaulting
-import numpy as np
+import jax.numpy as np
 import numpy.linalg as L
 from scipy.linalg import solveh_banded
 from scipy.optimize import golden

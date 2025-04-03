@@ -18,7 +18,7 @@ import contextlib
 from typing import Any
 import warnings
 
-import numpy as np
+import jax.numpy as np
 import pandas as pd
 from scipy.optimize import basinhopping, least_squares, minimize
 from scipy.special import inv_boxcox

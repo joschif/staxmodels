@@ -9,8 +9,8 @@ TODO:
   - rewrite core loop to use for...except instead of while.
 
 """
-import numpy as np
-from scipy import optimize
+import jax.numpy as np
+from jax.scipy import optimize
 
 from statsmodels.tools.testing import Holder
 

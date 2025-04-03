@@ -31,7 +31,7 @@ refactoring
 """
 import warnings
 
-import numpy as np
+import jax.numpy as np
 from scipy import stats, optimize, special
 from statsmodels.tools.rootfinding import brentq_expanding
 

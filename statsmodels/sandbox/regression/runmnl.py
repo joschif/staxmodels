@@ -22,9 +22,9 @@ Koppelman, Frank S., and Chandra Bhat with technical support from Vaneet Sethi,
 Author: josef-pktd
 License: BSD (simplified)
 '''
-import numpy as np
+import jax.numpy as np
 import numpy.lib.recfunctions as recf
-from scipy import optimize
+from jax.scipy import optimize
 
 
 class TryCLogit:

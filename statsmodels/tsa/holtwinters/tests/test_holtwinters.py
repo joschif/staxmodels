@@ -9,7 +9,7 @@ import os
 import re
 import warnings
 
-import numpy as np
+import jax.numpy as np
 from numpy.testing import assert_allclose, assert_almost_equal
 import pandas as pd
 import pytest

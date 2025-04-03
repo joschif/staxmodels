@@ -2,8 +2,8 @@
 Holds files for l1 regularization of LikelihoodModel, using
 scipy.optimize.slsqp
 """
-import numpy as np
-from scipy.optimize import fmin_slsqp
+import jax.numpy as np
+from jax.scipy.optimize import minimize
 
 import statsmodels.base.l1_solvers_common as l1_solvers_common
 
@@ -82,11 +82,11 @@ def fit_l1_slsqp(
         return _fprime_ieqcons(x_full, k_params)
 
     ### Call the solver
-    results = fmin_slsqp(
-        func, x0, f_ieqcons=f_ieqcons_wrap, fprime=fprime_wrap, acc=acc,
-        iter=maxiter, disp=disp_slsqp, full_output=full_output,
-        fprime_ieqcons=fprime_ieqcons_wrap)
-    params = np.asarray(results[0][:k_params])
+    results = minimize(
+        func, x0, constraints={'type': 'ineq', 'fun': f_ieqcons_wrap},
+        jac=fprime_wrap, options={'maxiter': maxiter, 'disp': disp_slsqp},
+        method='SLSQP')
+    params = np.asarray(results.x[:k_params])
 
     ### Post-process
     # QC
@@ -106,7 +106,7 @@ def fit_l1_slsqp(
     # TODO These retvals are returned as mle_retvals...but the fit was not ML.
     # This could be confusing someday.
     if full_output:
-        x_full, fx, its, imode, smode = results
+        x_full, fx, its, imode, smode = results.x, results.fun, results.nit, results.status, results.message
         fopt = func(np.asarray(x_full))
         converged = (imode == 0)
         warnflag = str(imode) + ' ' + smode

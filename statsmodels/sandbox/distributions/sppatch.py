@@ -12,8 +12,9 @@ License: Simplified BSD
 '''
 from statsmodels.compat.python import lmap
 
-import numpy as np
-from scipy import integrate, optimize, stats
+import jax.numpy as np
+from jax import scipy
+from jax.scipy import integrate, optimize, stats
 
 ########## patching scipy
 

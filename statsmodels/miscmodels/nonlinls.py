@@ -5,8 +5,8 @@
 Author: Josef Perktold based on scipy.optimize.curve_fit
 
 '''
-import numpy as np
-from scipy import optimize
+import jax.numpy as np
+from jax.scipy import optimize
 
 from statsmodels.base.model import Model
 

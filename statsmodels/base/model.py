@@ -6,7 +6,7 @@ from collections import defaultdict
 from functools import reduce
 import warnings
 
-import numpy as np
+import jax.numpy as np
 import pandas as pd
 from scipy import stats
 
